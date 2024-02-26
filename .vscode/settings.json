@@ -1,0 +1,6 @@
+{
+    "python.linting.enabled": false,
+    "python.pythonPath": "C:\\Users\\brenn\\.pyenv\\pyenv-win\\versions\\3.11.1\\python.exe",
+    "python.formatting.provider": "yapf",
+    "git.ignoreLimitWarning": true,
+}

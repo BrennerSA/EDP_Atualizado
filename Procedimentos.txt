@@ -1,0 +1,26 @@
+INSTALAR PYINSTALLER
+1. Instalar pyinstaller para python 2.7.18
+   >pip install pyinstaller==3.6
+
+   pyinstaller edp.py --noconsole --onedir --version-file file_version_info.txt
+
+CRIAR ARQUIVO DE VERSIONAMENTO
+1. Instalei o pyinstaller-version
+   > pip install pyinstaller-versionfile
+
+2. Criei o arquivo "ver.yml" que é YAML file de versionamento do programa.
+
+3. Usei o pyinstaller-versionfile para criar meu arquivo "file_version_info.txt"
+Para isso usei o comando:
+   > create-version-file ver.yml --outfile file_version_info.txt
+
+CONVERTER DE .PY PARA .EXE
+1. Instalei o cx-freeze para o python 2.7.18
+   > pip install cx-Freeze==5.1.1
+
+2. Depois executei o arquivo setup.py pelo comando
+   > python setup.py build
+
+PARA O INSTALADOR USEI O "Install-creator 2" PROGRAMA DA CLICKTEAM
+https://www.clickteam.com/install-creator-2-unreg
+Pode usar o arquivo InstallEDPConfig.iit no Install-creator 2
