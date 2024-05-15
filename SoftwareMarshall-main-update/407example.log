@@ -1,0 +1,55 @@
+DEBUG:root:Ensaio inacabado devido a: quantidade de dados coletados insuficiente
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage20" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage29" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage38" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage47" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage56" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage65" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage74" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage96" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage105" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage114" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage123" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage132" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage141" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage150" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage159" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage168" as iconphoto: not a photo image
+DEBUG:PIL.PngImagePlugin:STREAM 'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM 'sBIT' 41 4
+DEBUG:PIL.PngImagePlugin:'sBIT' 41 4 (unknown)
+DEBUG:PIL.PngImagePlugin:STREAM 'pHYs' 57 9
+DEBUG:PIL.PngImagePlugin:STREAM 'tEXt' 78 57
+DEBUG:PIL.PngImagePlugin:STREAM 'IDAT' 147 8192
+DEBUG:PIL.PngImagePlugin:STREAM 'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM 'sBIT' 41 4
+DEBUG:PIL.PngImagePlugin:'sBIT' 41 4 (unknown)
+DEBUG:PIL.PngImagePlugin:STREAM 'pHYs' 57 9
+DEBUG:PIL.PngImagePlugin:STREAM 'tEXt' 78 57
+DEBUG:PIL.PngImagePlugin:STREAM 'IDAT' 147 8192
+DEBUG:PIL.PngImagePlugin:STREAM 'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM 'sBIT' 41 4
+DEBUG:PIL.PngImagePlugin:'sBIT' 41 4 (unknown)
+DEBUG:PIL.PngImagePlugin:STREAM 'pHYs' 57 9
+DEBUG:PIL.PngImagePlugin:STREAM 'tEXt' 78 57
+DEBUG:PIL.PngImagePlugin:STREAM 'IDAT' 147 8192
+DEBUG:PIL.PngImagePlugin:STREAM 'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM 'sBIT' 41 4
+DEBUG:PIL.PngImagePlugin:'sBIT' 41 4 (unknown)
+DEBUG:PIL.PngImagePlugin:STREAM 'pHYs' 57 9
+DEBUG:PIL.PngImagePlugin:STREAM 'tEXt' 78 57
+DEBUG:PIL.PngImagePlugin:STREAM 'IDAT' 147 8192
+DEBUG:PIL.PngImagePlugin:STREAM 'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM 'sBIT' 41 4
+DEBUG:PIL.PngImagePlugin:'sBIT' 41 4 (unknown)
+DEBUG:PIL.PngImagePlugin:STREAM 'pHYs' 57 9
+DEBUG:PIL.PngImagePlugin:STREAM 'tEXt' 78 57
+DEBUG:PIL.PngImagePlugin:STREAM 'IDAT' 147 8192
+DEBUG:PIL.PngImagePlugin:STREAM 'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM 'sBIT' 41 4
+DEBUG:PIL.PngImagePlugin:'sBIT' 41 4 (unknown)
+DEBUG:PIL.PngImagePlugin:STREAM 'pHYs' 57 9
+DEBUG:PIL.PngImagePlugin:STREAM 'tEXt' 78 57
+DEBUG:PIL.PngImagePlugin:STREAM 'IDAT' 147 8192
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage241" as iconphoto: not a photo image
+INFO:matplotlib.backends._backend_tk:Could not load matplotlib icon: can't use "pyimage250" as iconphoto: not a photo image

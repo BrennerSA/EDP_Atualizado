@@ -9,14 +9,16 @@ from pubsub import publish
 
 class SetarPressaoGolpe():
 
-    def __init__(self,pressGolpe,PressaoAtual,diametro):
+    def __init__(self,pressGolpe,PressaoAtual,diametro,ensaio):
         self.pressGolpe=pressGolpe
         self.diametro=diametro
         self.p1Ant=PressaoAtual
+        self.ensaio=ensaio
         self.run()
 
     def run(self):
         E = bdConfiguration.DadosD1()
+        F= bdConfiguration.dados_d3()
         # A1 = bdConfiguration.DadosCL()
         pi = math.pi
         A2 = (self.diametro*self.diametro)*(pi/4)
@@ -24,12 +26,17 @@ class SetarPressaoGolpe():
         # const = abs(round(A2/A1,3))
         # if(const > 1.05 or const < 0.95):
         #     const = 1
+        if self.ensaio=='135' or self.ensaio=='183':
+            AE2=float(F[0])
+            BE2=float(F[1])
+            pressao1 = (self.pressGolpe)*AE2+BE2
+            pressao1Ant = (self.p1Ant)*AE2+BE2
+        else:
+            AE2= float(E[1])
+            BE2= float(E[2])
+            pressao1 = (10000*self.pressGolpe)*AE2+BE2
+            pressao1Ant = (10000*self.p1Ant)*AE2+BE2
 
-        AE2= float(E[1])
-        BE2= float(E[2])
-
-        pressao1 = (10000*self.pressGolpe)*AE2+BE2
-        pressao1Ant = (10000*self.p1Ant)*AE2+BE2
 
         time.sleep(.5)
         con.modeE() #envia para o arduino o codigo para alterar a pressão
@@ -42,18 +49,27 @@ class SetarPressaoGolpe():
 
 class ZerarPressaoGolpe():
 
-    def __init__(self, p1Sen):
+    def __init__(self, p1Sen,ensaio):
         self.p1Sen = p1Sen
+        self.ensaio=ensaio
         self.run()
 
     def run(self):
         E = bdConfiguration.DadosD1()
+        F= bdConfiguration.dados_d3()
    
-        AE2= float(E[1])
-        BE2= float(E[2])
+        
 
-        pressao1 = 0
-        pressao1Sen = (10000*self.p1Sen)*AE2+BE2
+        if self.ensaio=='135' or self.ensaio=='183':
+            AE2=float(F[0])
+            BE2=float(F[1])
+            pressao1 = 0
+            pressao1Sen = (self.p1Sen)*AE2+BE2
+        else:
+            AE2= float(E[1])
+            BE2= float(E[2])
+            pressao1 = 0
+            pressao1Sen = (10000*self.p1Sen)*AE2+BE2
 
         time.sleep(5)
         con.modeES()

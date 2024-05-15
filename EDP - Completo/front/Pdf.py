@@ -204,8 +204,8 @@ class Pdf134(wx.Dialog):
             
 
 
-                log_x_data = np.log(x)
-                log_y_data = np.log(y)
+                # log_x_data = np.log(x)
+                # log_y_data = np.log(y)
 
                 # modelo = LinearRegression()
                 # modelo.fit(x.reshape(-1,1),y)
@@ -240,7 +240,32 @@ class Pdf134(wx.Dialog):
                 fig = go.Figure(data=data, layout=layout)
                 # fig.update_xaxes(type='log')
                 # fig.update_yaxes(type='log')
-                pio.write_image(fig, 'grafico.png')
+                # pio.write_image(fig, 'grafico.png')
+
+
+                fig.write_html('Img\\grafico.html')
+
+                async def html_to_png(input_file, output_file):
+                    browser = await launch()
+                    page = await browser.newPage()
+                    with open(input_file, 'r', encoding='utf-8') as file:
+                        html_content = file.read()
+
+                    await page.setContent(html_content)
+                    await page.screenshot({'path': output_file, 'fullPage': True})
+                    await browser.close()
+                # options = {
+                #     'format': 'png',
+                #     'width': 1920,
+                #     'height': 1280,
+                # }
+                # with open('grafico1.html') as f:
+                #     imgkit.from_file(f, 'out.jpg')
+                    
+                html_input_file = 'Img\\grafico.html'
+                output_file = 'Img\\grafico.png'
+
+                asyncio.get_event_loop().run_until_complete(html_to_png(html_input_file, output_file))
 
                 x=np.array(tensaoConfinante)
                 # trace = go.Scatter(x=tensaoConfinante, y=tensaoMR, mode='markers')
@@ -278,14 +303,37 @@ class Pdf134(wx.Dialog):
                 data = [trace_scatter, trace_fit]
                 layout = go.Layout(title='Tensão confinante X MR',xaxis=dict(title='Tensao Confinante'), yaxis=dict(title='MR'))
                 fig = go.Figure(data=data, layout=layout)
-                pio.write_image(fig, 'grafico1.png')
+                # pio.write_image(fig, 'grafico1.png')
+                fig.write_html('Img\\grafico1.html')
+
+                async def html_to_png(input_file, output_file):
+                    browser = await launch()
+                    page = await browser.newPage()
+                    with open(input_file, 'r', encoding='utf-8') as file:
+                        html_content = file.read()
+
+                    await page.setContent(html_content)
+                    await page.screenshot({'path': output_file, 'fullPage': True})
+                    await browser.close()
+                # options = {
+                #     'format': 'png',
+                #     'width': 1920,
+                #     'height': 1280,
+                # }
+                # with open('grafico1.html') as f:
+                #     imgkit.from_file(f, 'out.jpg')
+                    
+                html_input_file = 'Img\\grafico1.html'
+                output_file = 'Img\\grafico1.png'
+
+                asyncio.get_event_loop().run_until_complete(html_to_png(html_input_file, output_file))
                 
                 
 
                 
 
                 # # Desenhar a imagem no canvas PDF
-                cnv.drawInlineImage("grafico.png", 50, 400,width=300,height=300) 
+                cnv.drawInlineImage("Img//grafico.png", 50, 400,width=300,height=300) 
 
                 cnv.setFont("Helvetica", 11)
                 cnv.drawString(pm(150), pm(220), 'MR=K1σd^K2 ')
@@ -299,7 +347,7 @@ class Pdf134(wx.Dialog):
                 cnv.drawString(pm(150), pm(100), 'R^2= '+ str(r_squared1))
 
 
-                cnv.drawInlineImage("grafico1.png", 50, 100,width=300,height=300)
+                cnv.drawInlineImage("Img//grafico1.png", 50, 100,width=300,height=300)
 
                 #RODAPÉ
                 o = Paragraph('OBS.: '+list[15])
@@ -363,12 +411,35 @@ class Pdf134(wx.Dialog):
                 data = [trace_scatter, trace_fit]
                 layout = go.Layout(title='Somatorio das Tensões X MR',xaxis=dict(title='Somatorio das Tensões'), yaxis=dict(title='MR'))
                 fig = go.Figure(data=data, layout=layout)
-                pio.write_image(fig, 'grafico2.png')
+                # pio.write_image(fig, 'grafico2.png')
+                fig.write_html('Img\\grafico2.html')
+
+                async def html_to_png(input_file, output_file):
+                    browser = await launch()
+                    page = await browser.newPage()
+                    with open(input_file, 'r', encoding='utf-8') as file:
+                        html_content = file.read()
+
+                    await page.setContent(html_content)
+                    await page.screenshot({'path': output_file, 'fullPage': True})
+                    await browser.close()
+                # options = {
+                #     'format': 'png',
+                #     'width': 1920,
+                #     'height': 1280,
+                # }
+                # with open('grafico1.html') as f:
+                #     imgkit.from_file(f, 'out.jpg')
+                    
+                html_input_file = 'Img\\grafico2.html'
+                output_file = 'Img\\grafico2.png'
+
+                asyncio.get_event_loop().run_until_complete(html_to_png(html_input_file, output_file))
                 data=[]
                 
                 
                 # # Desenhar a imagem no canvas PDF
-                cnv.drawInlineImage("grafico2.png", 50, 400,width=300,height=300)
+                cnv.drawInlineImage("Img//grafico2.png", 50, 400,width=300,height=300)
 
                 cnv.setFont("Helvetica", 11)
                 cnv.drawString(pm(150), pm(220), 'MR=K1θ^K2 ')
@@ -410,10 +481,34 @@ class Pdf134(wx.Dialog):
                 
                 layout = go.Layout(title='Modelo Combinado',xaxis=dict(title='Tensao'), yaxis=dict(title='MR'))
                 fig = go.Figure(data=data, layout=layout)
-                pio.write_image(fig, 'grafico3.png')
+                # pio.write_image(fig, 'grafico3.png')
                 
+                fig.write_html('Img\\grafico3.html')
+
+                async def html_to_png(input_file, output_file):
+                    browser = await launch()
+                    page = await browser.newPage()
+                    with open(input_file, 'r', encoding='utf-8') as file:
+                        html_content = file.read()
+
+                    await page.setContent(html_content)
+                    await page.screenshot({'path': output_file, 'fullPage': True})
+                    await browser.close()
+                # options = {
+                #     'format': 'png',
+                #     'width': 1920,
+                #     'height': 1280,
+                # }
+                # with open('grafico1.html') as f:
+                #     imgkit.from_file(f, 'out.jpg')
+                    
+                html_input_file = 'Img\\grafico3.html'
+                output_file = 'Img\\grafico3.png'
+
+                asyncio.get_event_loop().run_until_complete(html_to_png(html_input_file, output_file))
+
                 # # Desenhar a imagem no canvas PDF
-                cnv.drawInlineImage("grafico3.png", 50, 100,width=300,height=300)
+                cnv.drawInlineImage("Img//grafico3.png", 50, 100,width=300,height=300)
                 
 
 

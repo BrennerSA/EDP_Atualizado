@@ -16,6 +16,7 @@ class LeituraDados(Thread):
         self._self=_self
         self.leituraZerob1=valorLeitura0
         self.leituraZerob2=ValorLeitura1
+        self.converg_135=True
         self._pause=False
         self._ensaio=False
         self._stop_event = True
@@ -25,6 +26,7 @@ class LeituraDados(Thread):
         self.yyy=[]
         self.pc1=[]
         self.pg1=[]
+        self.forca=[]
         self.copia=[]
         self.copia135=np.array([])
         self.copiaX=[]
@@ -71,7 +73,7 @@ class LeituraDados(Thread):
         
         GolpeAnterior = -1
         x_counter = 0
-        self.valoresEnsaio = [0,0,0,0,0,0,0,0,0,0]
+        self.valoresEnsaio = [0,0,0,0,0,0,0,0,0,0,0]
         while self._stop_event:
             self.atualizarDadosTela()
             self.atualizarDadosTelaEnsaio()
@@ -111,7 +113,7 @@ class LeituraDados(Thread):
 
     def atualizarDadosTela(self):
         cont1 = 0
-        self.valoresEnsaio = [0,0,0,0,0,0,0,0,0,0]
+        self.valoresEnsaio = [0,0,0,0,0,0,0,0,0,0,0]
         while (not self._pause) and (not self._ensaio):
                 con.modeJ()
                 self.valoresEnsaio = con.ColetaI(self.valoresEnsaio,self._self.ensaio[0])
@@ -194,8 +196,12 @@ class LeituraDados(Thread):
                         if((self.timestamp-int(self.timestamp))==0 and self.timestamp != 0):
                             if self._self.ensaio[0]=='135':
                                 self._self.TopPanel.Y = savgol_filter(self._self.TopPanel.Y, 51, 6)
-                                self.copia=self._self.TopPanel.Y[-200:]
-                                self.copiaX=self._self.TopPanel.X[-200:]
+                                if self._self.ensaio[0]=='134':
+                                    self.copia=self._self.TopPanel.Y[-100:]
+                                    self.copiaX=self._self.TopPanel.X[-100:]
+                                else:
+                                    self.copia=self._self.TopPanel.Y[-200:]
+                                    self.copiaX=self._self.TopPanel.X[-200:]
                                 i=0
                                 self.copiaXTratado=[]
                                 while i<len(self.copiaX):
@@ -335,6 +341,7 @@ class LeituraDados(Thread):
                                 dr = sumyyy/5
                                 pc = sum(self.pc1)/len(self.pc1)
                                 pg = sum(self.pg1)/len(self.pg1)
+                                forca=sum(self.forca)/len(self.forca)
                             except Exception as e:
                                 print("Exceção:", type(e).__name__)
                             if self._self.ensaio[0] == '134':
@@ -370,11 +377,29 @@ class LeituraDados(Thread):
                             mediaMT=0
                             self.vetorMI = [x for x in self.vetorMI if x != float('inf') and x != float('-inf')]
                             i=-1
+                            
                             try:
-                                while i >= -5:
-                                    mediamr=mediamr+self.vetorMR[i]
-                                    i=i-1
-                                mediamr=mediamr/5
+                                if self.converg_135:
+                                    while i >= -5:
+                                        mediamr=mediamr+self.vetorMR[i]
+                                        i=i-1
+                                    mediamr=mediamr/5
+                                else:
+                                    conv={}
+                                    listconv=0
+                                    cont_conv=0
+                                    mediatotal=sum(self.vetorMR)/len(self.vetorMR)
+                                    for valor in self.vetorMR:
+                                        if abs(((mediatotal-valor)/mediatotal)*100)<5:
+                                            conv[abs(((mediatotal-valor)/mediatotal)*100)]=valor
+                                    conv=dict(sorted(conv.items()))
+                                    print(conv)
+                                    for chave,value in conv.items():
+                                        listconv+=value
+                                        cont_conv+=1
+                                        if cont_conv==5:
+                                            break
+                                    mediamr=listconv/5
                                 mediaMI=sum(self.vetorMI)/len(self.vetorMI)
                                 mediaMT=sum(self.vetorMT)/len(self.vetorMT)
                             except Exception as e:
@@ -448,10 +473,18 @@ class LeituraDados(Thread):
                     self.yyy.append(deslocamentoResiliente)
                     print (self.amplitudeMaxima, self.amplitudeMinima)
                     self.amplitudeMaxima=0
+                    # self.amplitudeMinima=min(self.copia)
+                    # self.amplitudeMaxima=max(self.copia)
+                    # deslocamentoResiliente = self.amplitudeMaxima - self.amplitudeMinima
+                    # self.yyy.append(deslocamentoResiliente)
+                    # print (self.amplitudeMaxima, self.amplitudeMinima)
 
             if int(self.valoresEnsaio[0]) > 4 and int(self.valoresEnsaio[0]) <= int(self.valoresEnsaio[9]):
                 self.pc1.append(self.valoresEnsaio[5]) #pressão da camara
                 self.pg1.append(self.valoresEnsaio[6]) #pressão de desvio
+                if self.valoresEnsaio[0]-int(self.valoresEnsaio[0])<0.1:
+                    self.forca.append(self.valoresEnsaio[10])
+                
 
     def calculo179(self):
         if self._self.Fase == 'CONDICIONAMENTO' and self._self.ensaio[0]=='179':
@@ -662,7 +695,10 @@ class LeituraDados(Thread):
                                     i=i-1  
                                 if verif==False or self.valoresEnsaio[8]>=200:
                                     self.avancaMr=True
+                                    self.converg_135=False
                                     con.modeFIM()
+                                else:
+                                    self.converg_135=True
                     except Exception as e:
                         print("Exceção:", type(e).__name__)
                         print ("erro ao calcular os modulos")

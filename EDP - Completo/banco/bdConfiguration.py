@@ -199,6 +199,35 @@ def DadosD1():
 
     return list
 
+def dados_lvdt_asfalto():
+    list=[]
+    for row in c.execute('SELECT * FROM lvdt_asfalto'):
+        list.append(row[1])
+        list.append(row[2])
+
+    return list
+
+
+def dados_forca():
+    list=[]
+    for row in c.execute('SELECT * FROM forca'):
+        list.append(row[1])
+        list.append(row[2])
+
+    return list
+
+
+def dados_d3():
+    list=[]
+    for row in c.execute('SELECT * FROM d3'):
+        list.append(row[1])
+        list.append(row[2])
+        list.append(row[3])
+        list.append(row[4])
+
+    return list
+
+
 '''Retorna uma lista as variaveis I, A e B de Calibração da Válvula Dinâmica 2'''
 def DadosD2():
     list = []

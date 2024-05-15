@@ -103,6 +103,7 @@ unsigned long currentMillis; //variacao do tempo em milisegundos
 unsigned long initialMillis; //tempo incial dinamico
 unsigned char conexao;  //tipos de conexoes
 unsigned char leitura;  //ler dado na porta serial
+bool alt = false;
 
 /* Estrutura da função S */
 struct S{
@@ -326,6 +327,10 @@ void loop(void) {
             }
             if(setpoint2 == -3){
               goto sensorLVDTDNIT134;
+            }if(setpoint2 == -5){
+              alt=!alt;
+              Serial.println(alt);
+              digitalWrite(pinA,alt);
             }
           }
         }
@@ -682,8 +687,8 @@ void loop(void) {
             }
           }
           if(digitalRead(SensorIndutivo)==1){
-            Serial.println(digitalRead(SensorIndutivo));
-            statuS=2;
+            statuS=4;
+            imprimir2();
             if((currentMillis - initialMillis)% 5 == 0 && (currentMillis - initialMillis)!= 0){
               goto pararEnsaioDNIT135;
             }
@@ -735,7 +740,12 @@ void SetarPressGlp(){
       }
       if(setpoint2 == -3){
         break;
+      }if(setpoint2 == -5){
+        alt=!alt;
+        Serial.println(alt);
+        digitalWrite(pinB,alt);
       }
+      
     }
   }
 }
@@ -778,7 +788,9 @@ void imprimir(){
   Serial.print(",");
   Serial.print(nGolpe);      //glp
   Serial.print(",");
-  Serial.println(ntotalGolpes); //ntglp
+  Serial.print(ntotalGolpes);//ntglp
+  Serial.print(",");
+  Serial.println(100); 
 }/* Imprimir dados DA 134*/
 
 void calculoDiscrepancia(){
@@ -850,7 +862,7 @@ void imprimir2(){
   vd5=ad5;
   vd6 = ad6*bit12_Voltage*1000;
 
-  if (vd2>lmtVoltSenDesl){
+  if (vd2>lmtVoltSenDesl && condFadiga==0){
     statuS=2;
     nGolpe=ntotalGolpes;
   }

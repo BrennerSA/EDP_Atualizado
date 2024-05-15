@@ -366,8 +366,11 @@ class dialogoDinamico(wx.Dialog):
                 if cont1 == 20:
                     cont1 = 0
                 cont1 = cont1 + 1
-                if self.valoresEnsaio[0] == int(self.valoresEnsaio[9]):
+                if int(self.valoresEnsaio[0])==self.valoresEnsaio[0] and int(self.valoresEnsaio[0])%3600==0:
+                    bancodedados.dados_dnit183_parcial(self.Nome,0,self.resistencia,self.tensao,sum(self.pressoes)/len(self.pressoes),int(self.valoresEnsaio[8]),self.ensaio[14],self.ensaio[15],self.ensaio[28])
+                if self.valoresEnsaio[0] == int(self.valoresEnsaio[9]) or self.valoresEnsaio[5]!=0 or self.valoresEnsaio[7]==2:
                     # or self.valoresEnsaio[5]!=0
+                    self.fim=True
                     evt = wx.PyCommandEvent(wx.EVT_BUTTON.typeId, self.ButtonFim.GetId())
                     wx.PostEvent(self.ButtonFim, evt)
                     break
@@ -424,7 +427,7 @@ class dialogoDinamico(wx.Dialog):
             dialog = wx.ProgressDialog("Aguarde", "Aguarde, calibrando pressões", maximum=100)
             time.sleep(.5)
             dialog.Update(33)
-            press=SetarPressoes.SetarPressaoGolpe(self.resistencia*self.tensao,0,0.1)
+            press=SetarPressoes.SetarPressaoGolpe(self.resistencia*self.tensao,0,0.1,self.ensaio[0])
             self.PressaoAtualGolpe=self.resistencia*self.tensao
             time.sleep(0.5)
             dialog.Update(66)
@@ -457,7 +460,7 @@ class dialogoDinamico(wx.Dialog):
             if self.ensaio[27] != '':
                 self.Nome=self.ensaio[27]
             bancodedados.dados_dnit183(self.Nome,0,self.resistencia,self.tensao,sum(self.pressoes)/len(self.pressoes),int(self.NGolpes.GetLabel()),self.ensaio[14],self.ensaio[15],self.ensaio[28])
-            SetarPressoes.ZerarPressaoGolpe(self.PressaoAtualGolpe)
+            SetarPressoes.ZerarPressaoGolpe(self.PressaoAtualGolpe,self.ensaio[0])
             menssagFinal = wx.MessageDialog(self, 'ENSAIO FINALIZADO - PRESSIONE "SAIR" PARA FECHAR A JANELA!', 'EDP', wx.OK|wx.ICON_AUTH_NEEDED)
             aboutPanel = wx.TextCtrl(menssagFinal, -1, style = wx.TE_MULTILINE|wx.TE_READONLY|wx.HSCROLL)
             menssagFinal.ShowModal()

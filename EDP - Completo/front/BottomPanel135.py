@@ -811,7 +811,7 @@ class BottomPanel(wx.Panel):
                     self.qTensoes.Enable()
                 self.mr.Enable()
             self.LTeste.Disable()
-            valores = [0,0,0,0,0,0,0,0,0,0]
+            valores = [0,0,0,0,0,0,0,0,0,0,0]
             self.threadLeituraDados.pause()
             if self.ensaio[0]!='135':
                 while valores[1]==0 and valores[2]==0:
@@ -894,7 +894,7 @@ class BottomPanel(wx.Panel):
             dialog = wx.ProgressDialog("Aguarde", "Aguarde, calibrando pressões", maximum=100)
             time.sleep(.5)
             dialog.Update(33)
-            press=SetarPressoes.SetarPressaoGolpe(self.resistencia,self.TopPanel.PressaoAtualGolpe,float(self.DiametroMM.GetValue()))
+            press=SetarPressoes.SetarPressaoGolpe(self.resistencia,self.TopPanel.PressaoAtualGolpe,float(self.DiametroMM.GetValue()),self.ensaio[0])
             self.TopPanel.PressaoAtualGolpe=self.resistencia
             time.sleep(0.5)
             dialog.Update(66)
@@ -1125,7 +1125,7 @@ class BottomPanel(wx.Panel):
                         self.threadLeituraDados.pause()
                         self.threadLeituraDados.stop()
                         self._fase = 0
-                        SetarPressoes.ZerarPressaoGolpe(self.TopPanel.PressaoAtualGolpe)
+                        SetarPressoes.ZerarPressaoGolpe(self.TopPanel.PressaoAtualGolpe,self.ensaio[0])
                         bancodedados.data_final_Update_idt(self.Nome)
                         dlg3 = dialogoDinamico(3, "EDP DNIT134/2018ME", "O ENSAIO FOI FINALIZADO!", "Os relatório de extração são gerados na tela inicial.", "FIM!", "", None)
                         if dlg3.ShowModal() == wx.ID_OK:
@@ -1210,7 +1210,7 @@ class BottomPanel(wx.Panel):
                     time.sleep(3)
                     # print self.pressoesMR[self._fase-1][1]
                     # print self.TopPanel.PressaoAtualGolpe
-                    SetarPressoes.ZerarPressaoGolpe(self.TopPanel.PressaoAtualGolpe)
+                    SetarPressoes.ZerarPressaoGolpe(self.TopPanel.PressaoAtualGolpe,self.ensaio[0])
                     time.sleep(1)
                     # print self.pressoesMR[self._fase-1][0]
                     print (self.TopPanel.PressaoAtualCamara)
@@ -1283,7 +1283,7 @@ class BottomPanel(wx.Panel):
                     self.threadLeituraDados.pause()
                     self.threadLeituraDados.stop()
                     time.sleep(3)
-                    SetarPressoes.ZerarPressaoGolpe(self.pressoes[self._fase-1])
+                    SetarPressoes.ZerarPressaoGolpe(self.pressoes[self._fase-1],self.ensaio[0])
                     bancodedados.data_final_Update_idt(self.Nome)
                     dlg3 = dialogoDinamico(3, "EDP DNIT181/2018ME", "O ENSAIO FOI FINALIZADO!", "Os relatório de extração são gerados na tela inicial.", "FIM!", "", None)
                     if dlg3.ShowModal() == wx.ID_OK:
@@ -1342,7 +1342,7 @@ class BottomPanel(wx.Panel):
                         self.threadLeituraDados.pause()
                         self.threadLeituraDados.stop()
                         time.sleep(3)
-                        SetarPressoes.ZerarPressaoGolpe(self.VETOR_DP[0][1])
+                        SetarPressoes.ZerarPressaoGolpe(self.VETOR_DP[0][1],self.ensaio[0])
                         time.sleep(1)
                         SetarPressoes.ZerarPressaoCamara(self.VETOR_DP[0][0])
                         bancodedados.data_final_Update_idt(self.Nome)

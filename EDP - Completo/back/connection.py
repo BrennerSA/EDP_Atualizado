@@ -2,6 +2,7 @@
 
 '''Bibliotecas'''
 
+import math
 import time
 import serial
 import banco.bancodedados as bancodedados
@@ -44,6 +45,17 @@ B3_S3 = float(L2[2])
 A4_S4 = float(L2[5])
 B4_S4 = float(L2[6])
 
+
+'''Coeficientes da calibracao dos sensor lvdt asfalto'''
+L3 = bdConfiguration.dados_lvdt_asfalto()
+Ax_asfalto = float(L3[0])
+Bx_asfalto = float(L3[1])
+
+'''Coeficientes da calibracao da celula de carga'''
+forca = bdConfiguration.dados_forca()
+Ax_forca = float(forca[0])
+B_forca = float(forca[1])
+
 '''Coeficientes da calibracao da valvula DINAMICA 1'''
 E = bdConfiguration.DadosD1()
 AE1 = float(E[5])
@@ -53,6 +65,12 @@ BE1 = float(E[6])
 F = bdConfiguration.DadosD2()
 AF1 = float(F[5])
 BF1 = float(F[6])
+
+'''Coeficientes da calibracao da valvula DINAMICA 3'''
+G = bdConfiguration.dados_d3()
+AG1 = float(G[2])
+BG1 = float(G[3])
+
 
 #-------------------------------------------------------------------
 def connect(DISCREP):
@@ -479,10 +497,10 @@ def ColetaI(valores,ensaio):
         Array = arduinoString.split(',')
         try:
             temp = float(Array[0])          #tempo
-            y = float(Array[1])*0.00005792-0.00664289 #deslocamento   #salvar esses coeficientes em bdconfiguration
+            y = float(Array[1])*Ax_asfalto+Bx_asfalto                            #            #0.00005792-0.00664289 #deslocamento   #salvar esses coeficientes em bdconfiguration
             y1v = float(Array[2])           #tensão
             Ind = float(Array[3])           #sensor indutivo
-            pis = float(Array[4])*AE1+BE1   #pistão
+            pis = float(Array[4])*AG1-BG1   #pistão 
             sts = int(Array[5])             #status
             glp = int(Array[6])             #golpe atual
             ntglp = int(Array[7])           #golpe total
@@ -501,11 +519,11 @@ def ColetaI(valores,ensaio):
             glp = valores[6]
             ntglp = valores[7]
 
-        return temp, y, 0, y1v, 0, Ind, pis, sts, glp, ntglp
+        return temp, y, 0, y1v, 0, Ind, pis, sts, glp, ntglp,0
     else:
         while (conexao.inWaiting() == 0):
             pass
-        arduinoString = conexao.readline()
+        arduinoString = conexao.readline().decode()
         Array = arduinoString.split(',')
         try:
             temp = float(Array[0])
@@ -518,6 +536,7 @@ def ColetaI(valores,ensaio):
             sts = int(Array[7])
             glp = int(Array[8])
             ntglp = int(Array[9])
+            cel= (int(Array[10])*Ax_forca+B_forca)*1000
             if pis < 0.015:
                 pis = 0.002
             if cam < 0:
@@ -535,8 +554,9 @@ def ColetaI(valores,ensaio):
             sts = valores[7]
             glp = valores[8]
             ntglp = valores[9]
+            cel= valores[10]
 
-        return temp, y1mm, y2mm, y1v, y2v, cam, pis, sts, glp, ntglp
+        return temp, y1mm, y2mm, y1v, y2v, cam, pis, sts, glp, ntglp, cel
 
 #-------------------------------------------------------------------
 def ColetaJ(valores):

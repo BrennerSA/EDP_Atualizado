@@ -160,7 +160,7 @@ def getpulso135(idt):
 '''Lista com os ids'''
 def ids():
     lista_id = []
-    tupla=c.execute('SELECT * FROM dadosIniciais')
+    tupla=c.execute('SELECT * FROM dadosIniciais ORDER BY id DESC LIMIT 10')
     for row in tupla:
         lista_id.append([row[0]])
 
@@ -191,7 +191,7 @@ def juncaoLista():
 '''Captura as datas iniciais dos ensaios para criar uma lista para visualização'''
 def dataInicial():
     list_dateincial = []
-    tupla=c.execute('SELECT * FROM dadosIniciais')
+    tupla=c.execute('SELECT * FROM dadosIniciais ORDER BY id DESC LIMIT 10')
     for row in tupla:
         list_dateincial.append([row[12]])
 
@@ -200,7 +200,7 @@ def dataInicial():
 '''Captura as datas finais dos ensaios para criar uma lista para visualização'''
 def datafinal():
     list_datefinal = []
-    tupla=c.execute('SELECT * FROM dadosIniciais')
+    tupla=c.execute('SELECT * FROM dadosIniciais ORDER BY id DESC LIMIT 10')
     for row in tupla:
         list_datefinal.append([row[13]])
 
@@ -209,7 +209,7 @@ def datafinal():
 '''Captura as identificacoes'''
 def data_identificadores():
     list_id = []
-    tupla=c.execute('SELECT * FROM dadosIniciais')
+    tupla=c.execute('SELECT * FROM dadosIniciais ORDER BY id DESC LIMIT 10')
     for row in tupla:
         list_id.append(row[3])
 
@@ -226,7 +226,7 @@ def ListaVisualizacao():
         c.append(a[cont] + b[cont])
         cont = cont +1
 
-    return c[::-1] #retorna a lista c de mado invertido
+    return c #retorna a lista c de mado invertido
 
 '''Deleta o ensaio no banco de dados'''
 def delete(idt):

@@ -167,7 +167,7 @@ class TopPanel(wx.Panel):
                     time.sleep(.5)
                     dialog.Update(33)
                     if not self._self.bottom.condRT:
-                        press=SetarPressoes.SetarPressaoGolpe(self._self.bottom.resistencia*float(self._self.bottom.ensaio[26]),0,float(self._self.bottom.DiametroMM.GetValue()))
+                        press=SetarPressoes.SetarPressaoGolpe(self._self.bottom.resistencia*float(self._self.bottom.ensaio[26]),0,float(self._self.bottom.DiametroMM.GetValue()),self._self.bottom.ensaio[0])
                         self.PressaoAtualGolpe=self._self.bottom.resistencia*float(self._self.bottom.ensaio[26])
                     time.sleep(0.5)
                     dialog.Update(66)
@@ -177,14 +177,14 @@ class TopPanel(wx.Panel):
                         time.sleep(.5)
                         dialog.Update(33)
                         if(self.PressaoAtualGolpe!=self.PressaoAtualGolpe*self.PRESSOES[self._fase-1] or self._self.bottom.onlyMR):
-                            press=SetarPressoes.SetarPressaoGolpe(self.PressaoAtualGolpe*self.PRESSOES[self._fase-1],self.PressaoAtualGolpe,float(self._self.bottom.DiametroMM.GetValue()))        
+                            press=SetarPressoes.SetarPressaoGolpe(self.PressaoAtualGolpe*self.PRESSOES[self._fase-1],self.PressaoAtualGolpe,float(self._self.bottom.DiametroMM.GetValue()),self._self.bottom.ensaio[0])        
                             self.PressaoAtualGolpe=self.PressaoAtualGolpe*self.PRESSOES[self._fase-1]
                             self._self.bottom.onlyMR=False
                         time.sleep(0.5)
                         dialog.Update(66)
                     else:
                         time.sleep(.5)
-                        press=SetarPressoes.SetarPressaoGolpe(self._self.bottom.resistencia*self.PRESSOES[self._fase],float(self._self.bottom.DiametroMM.GetValue()))
+                        press=SetarPressoes.SetarPressaoGolpe(self._self.bottom.resistencia*self.PRESSOES[self._fase],float(self._self.bottom.DiametroMM.GetValue()),self._self.bottom.ensaio[0])
                     
                     if self._self.bottom.Automatico == False:
                         condition = True
@@ -197,7 +197,7 @@ class TopPanel(wx.Panel):
                 if self._self.bottom.Fase=='CONDICIONAMENTO':
                     time.sleep(0.5)
                     dialog.Update(33)
-                    SetarPressoes.SetarPressaoGolpe(self._self.bottom.pressoesCONDICIONAMENTO[self._fase-1][1],self.PressaoAtualGolpe,float(self._self.bottom.DiametroMM.GetValue()))
+                    SetarPressoes.SetarPressaoGolpe(self._self.bottom.pressoesCONDICIONAMENTO[self._fase-1][1],self.PressaoAtualGolpe,float(self._self.bottom.DiametroMM.GetValue()),self._self.bottom.ensaio[0])
                     self.PressaoAtualGolpe=self._self.bottom.pressoesCONDICIONAMENTO[self._fase-1][1]
                     time.sleep(0.5)
                     dialog.Update(66)
@@ -210,7 +210,7 @@ class TopPanel(wx.Panel):
                 elif self._self.bottom.Fase=='MR':
                     time.sleep(0.5)
                     dialog.Update(33)
-                    SetarPressoes.SetarPressaoGolpe(self._self.bottom.pressoesMR[self._fase-1][1],self.PressaoAtualGolpe,float(self._self.bottom.DiametroMM.GetValue()))
+                    SetarPressoes.SetarPressaoGolpe(self._self.bottom.pressoesMR[self._fase-1][1],self.PressaoAtualGolpe,float(self._self.bottom.DiametroMM.GetValue()),self._self.bottom.ensaio[0])
                     self.PressaoAtualGolpe=self._self.bottom.pressoesMR[self._fase-1][1]
                     time.sleep(0.5)
                     dialog.Update(66)
@@ -223,7 +223,7 @@ class TopPanel(wx.Panel):
                 time.sleep(0.5)
                 dialog = wx.ProgressDialog("Aguarde", "Aguarde, calibrando pressões", maximum=100)
                 dialog.Update(50)
-                SetarPressoes.SetarPressaoGolpe(self._self.bottom.pressoes[self._fase-1],self.PressaoAtualGolpe,float(self._self.bottom.DiametroMM.GetValue()))
+                SetarPressoes.SetarPressaoGolpe(self._self.bottom.pressoes[self._fase-1],self.PressaoAtualGolpe,float(self._self.bottom.DiametroMM.GetValue()),self._self.bottom.ensaio[0])
                 self.PressaoAtualGolpe=self._self.bottom.pressoes[self._fase-1]
                 dialog.Update(99)
                 time.sleep(0.5)
@@ -233,7 +233,7 @@ class TopPanel(wx.Panel):
                 if self._self.bottom.Fase=='CONDICIONAMENTO':
                     time.sleep(0.5)
                     dialog.Update(33)
-                    SetarPressoes.SetarPressaoGolpe(self._self.bottom.VETOR_COND[0][1],self.PressaoAtualGolpe,float(self._self.bottom.DiametroMM.GetValue()))
+                    SetarPressoes.SetarPressaoGolpe(self._self.bottom.VETOR_COND[0][1],self.PressaoAtualGolpe,float(self._self.bottom.DiametroMM.GetValue()),self._self.bottom.ensaio[0])
                     self.PressaoAtualGolpe=self._self.bottom.VETOR_COND[0][1]
                     time.sleep(0.5)
                     dialog.Update(66)
@@ -245,7 +245,7 @@ class TopPanel(wx.Panel):
                 elif self._self.bottom.Fase=='DP':
                     time.sleep(0.5)
                     dialog.Update(33)
-                    SetarPressoes.SetarPressaoGolpe(self._self.bottom.VETOR_DP[0][1],self.PressaoAtualGolpe,float(self._self.bottom.DiametroMM.GetValue()))
+                    SetarPressoes.SetarPressaoGolpe(self._self.bottom.VETOR_DP[0][1],self.PressaoAtualGolpe,float(self._self.bottom.DiametroMM.GetValue()),self._self.bottom.ensaio[0])
                     self.PressaoAtualGolpe=self._self.bottom.VETOR_DP[0][1]
                     time.sleep(0.5)
                     dialog.Update(66)
@@ -337,7 +337,7 @@ class TopPanel(wx.Panel):
                         self._self.bottom.mr.Enable()
                         self.fim_inicio.SetLabel('INICIO')
                         self.Bind(wx.EVT_BUTTON, self.INICIO, self.fim_inicio)
-                        SetarPressoes.ZerarPressaoGolpe(self.PressaoAtualGolpe)
+                        SetarPressoes.ZerarPressaoGolpe(self.PressaoAtualGolpe,self._self.bottom.ensaio[0])
 
                     elif self._self.bottom.Fase == 'RT':
                         self._self.bottom._fase = 0
@@ -348,7 +348,7 @@ class TopPanel(wx.Panel):
                         self._self.bottom.Bind(wx.EVT_BUTTON,self._self.bottom.CONDIC,self._self.bottom.condic)
 
                     elif self._self.bottom.Fase == 'MR':
-                        SetarPressoes.ZerarPressaoGolpe(self.PressaoAtualGolpe)
+                        SetarPressoes.ZerarPressaoGolpe(self.PressaoAtualGolpe,self._self.bottom.ensaio[0])
                         bancodedados.data_final_Update_idt(self._self.bottom.Nome)
                         dlg3 = dialogoDinamico(3, "EDP 134/2018ME", "O ENSAIO FOI FINALIZADO!", "Os relatório podem ser gerados na tela inicial.", "FIM!", "", None)
                         dlg3.ShowModal()
@@ -368,7 +368,7 @@ class TopPanel(wx.Panel):
                         self._self.bottom.mr.Enable()
                         self.fim_inicio.SetLabel('INICIO')
                         self.Bind(wx.EVT_BUTTON, self.INICIO, self.fim_inicio)
-                        SetarPressoes.ZerarPressaoGolpe(self.PressaoAtualGolpe)
+                        SetarPressoes.ZerarPressaoGolpe(self.PressaoAtualGolpe,self._self.bottom.ensaio[0])
                         time.sleep(3)
                         SetarPressoes.ZerarPressaoCamara(self.PressaoAtualCamara)
                         self.PressaoAtualGolpe=0
@@ -376,7 +376,7 @@ class TopPanel(wx.Panel):
 
 
                     elif self._self.bottom.Fase == 'MR':
-                        SetarPressoes.ZerarPressaoGolpe(self.PressaoAtualGolpe)
+                        SetarPressoes.ZerarPressaoGolpe(self.PressaoAtualGolpe,self._self.bottom.ensaio[0])
                         time.sleep(3)
                         SetarPressoes.ZerarPressaoCamara(self.PressaoAtualCamara)
                         bancodedados.data_final_Update_idt(self._self.bottom.Nome)
@@ -398,13 +398,13 @@ class TopPanel(wx.Panel):
                         self._self.bottom.dp.Enable()
                         self.fim_inicio.SetLabel('INICIO')
                         self.Bind(wx.EVT_BUTTON, self.INICIO, self.fim_inicio)
-                        SetarPressoes.ZerarPressaoGolpe(self._self.bottom.VETOR_COND[0][1])
+                        SetarPressoes.ZerarPressaoGolpe(self._self.bottom.VETOR_COND[0][1],self._self.bottom.ensaio[0])
                         time.sleep(3)
                         SetarPressoes.ZerarPressaoCamara(self._self.bottom.VETOR_COND[0][0])
 
 
                     elif self._self.bottom.Fase == 'DP':
-                        SetarPressoes.ZerarPressaoGolpe(self._self.bottom.VETOR_DP[0][1])
+                        SetarPressoes.ZerarPressaoGolpe(self._self.bottom.VETOR_DP[0][1],self._self.bottom.ensaio[0])
                         time.sleep(3)
                         SetarPressoes.ZerarPressaoCamara(self._self.bottom.VETOR_DP[0][0])
                         bancodedados.data_final_Update_idt(self._self.bottom.Nome)
