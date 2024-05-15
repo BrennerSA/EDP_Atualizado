@@ -46,6 +46,7 @@ int setpoint; //valor de entrada para o setpoint em porcentagem
 int setpoint1; //Valor de entrada para o setpoint1 em milibar (0 - 10.000)mBar
 int setpoint2; //Valor de entrada para o setpoint2 em milibar (0 - 10.000)mBar
 int condFadiga=0;
+int forca=0;
 
 //********************* VARIAVEIS PARA A CONDIÇÃO DE DISCREPÂNCIA  ************************//
 int lmt;  //valor limite para os golpes com a condicao de discrepância
@@ -124,8 +125,8 @@ void setup(void) {
   //analogWrite(DAC1, 0); //pino apenas para ver a função waveforms no osciloscopio (para testes)
   pinMode(A4, INPUT); //pino LVDT1
   pinMode(A6, INPUT); //pino LVDT2
-  pinMode(A8, INPUT); //pino LVDT_Asfalto
-  // pinMode(A9, INPUT); //pino LVDT4
+  pinMode(A8, INPUT); //pino celula de carga
+  pinMode(A7, INPUT); //pino LVDT_Asfalto
   pinMode(A0, INPUT); //pino Sensor de pressão (válvula do motor) (valvula dinâmica 1) (camara)
   pinMode(A2, INPUT); //pino Sensor de pressão (válvula dinâmica 2) (pistao)
   pinMode(A10, INPUT); //pino Sendor de Temperatura (Estufa)
@@ -764,6 +765,7 @@ void imprimir(){
   vd1 = ad1*bit16_Voltage;
   vd4 = ad4; //mbar (camara)
   vd5 = ad5; //mbar (pistão)
+  forca=analogRead(A8);
   admedio = (ad0+ad1)/2; //admedio
   //CONDICAO DE DE MARGEM DE SEGURANÇA PARA OS SENSORES//
   if(ad0 > margemSup or ad1 > margemSup or ad0 < margemInf or ad1 < margemInf){
@@ -790,7 +792,7 @@ void imprimir(){
   Serial.print(",");
   Serial.print(ntotalGolpes);//ntglp
   Serial.print(",");
-  Serial.println(100); 
+  Serial.println(forca); 
 }/* Imprimir dados DA 134*/
 
 void calculoDiscrepancia(){
@@ -853,7 +855,7 @@ void calculoDiscrepancia(){
 //**********************************************************************************//
 /* Imprimir dados na 135 */
 void imprimir2(){
-  ad2 = adc.read(A8);
+  ad2 = adc.read(A7);
   ad5 = analogRead(A2);
   // ad3 = adc.read(A9);
   // ad6 = analogRead(A10); //SENSOR DE TEMPERATURA
