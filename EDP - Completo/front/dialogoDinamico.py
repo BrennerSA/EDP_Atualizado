@@ -368,13 +368,17 @@ class dialogoDinamico(wx.Dialog):
                 cont1 = cont1 + 1
                 if int(self.valoresEnsaio[0])==self.valoresEnsaio[0] and int(self.valoresEnsaio[0])%3600==0:
                     bancodedados.dados_dnit183_parcial(self.Nome,0,self.resistencia,self.tensao,sum(self.pressoes)/len(self.pressoes),int(self.valoresEnsaio[8]),self.ensaio[14],self.ensaio[15],self.ensaio[28])
-                if self.valoresEnsaio[0] == int(self.valoresEnsaio[9]) or self.valoresEnsaio[5]!=0 or self.valoresEnsaio[7]==2:
+                if self.valoresEnsaio[5]!=0 or self.valoresEnsaio[7]!=0:
+                    if self.valoresEnsaio[7]==2:
+                        print("Tensão do lvdt ultrapassou o limite permitido")
+                    elif self.valoresEnsaio[7]==4:
+                        print("rompimento do corpo de prova ou sensor indutivo saiu da posição")
                     # or self.valoresEnsaio[5]!=0
                     self.fim=True
                     evt = wx.PyCommandEvent(wx.EVT_BUTTON.typeId, self.ButtonFim.GetId())
                     wx.PostEvent(self.ButtonFim, evt)
                     break
-            print ("saiu")
+            print ("fim da thread de leitura do arduino")
             
         
     #--------------------------------------------------

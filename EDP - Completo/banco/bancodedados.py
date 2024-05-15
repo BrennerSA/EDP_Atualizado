@@ -73,6 +73,10 @@ def dados_dnit183(idt,cp,resistencia,tensao,pressGolpe,qtdgolpe,diametro,espessu
     c.execute('INSERT INTO dadosDNIT183 (idt,cp, resistencia, nivel_tensao, pressao_golpe, Qtd_golpes, diametro, espessura,mr) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)', (idt,cp,resistencia,tensao,pressGolpe,qtdgolpe,diametro,espessura,mr))
     connection.commit()
 
+def dados_dnit183_parcial(idt,cp,resistencia,tensao,pressGolpe,qtdgolpe,diametro,espessura,mr):
+    c.execute('INSERT INTO parciais183 (idt,cp, resistencia, nivel_tensao, pressao_golpe, Qtd_golpes, diametro, espessura,mr) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)', (idt,cp,resistencia,tensao,pressGolpe,qtdgolpe,diametro,espessura,mr))
+    connection.commit()
+    
 
 '''coleta uma lista com os dados iniciais dos ensaio de acordo com o ID'''
 
